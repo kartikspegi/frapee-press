@@ -77,26 +77,26 @@ def get_erpnext_com_connection():
 	)
 
 
-def get_frappe_io_connection():
-	if hasattr(frappe.local, "press_frappeio_conn"):
-		return frappe.local.press_frappeio_conn
+# def get_frappe_io_connection():
+# 	if hasattr(frappe.local, "press_frappeio_conn"):
+# 		return frappe.local.press_frappeio_conn
 
-	from frappe.frappeclient import FrappeClient
+# 	from frappe.frappeclient import FrappeClient
 
-	press_settings = frappe.get_single("Press Settings")
-	frappe_api_key = press_settings.frappeio_api_key
-	frappe_api_secret = press_settings.get_password(
-		"frappeio_api_secret", raise_exception=False
-	)
+# 	press_settings = frappe.get_single("Press Settings")
+# 	frappe_api_key = press_settings.frappeio_api_key
+# 	frappe_api_secret = press_settings.get_password(
+# 		"frappeio_api_secret", raise_exception=False
+# 	)
 
-	if not (frappe_api_key and frappe_api_secret and press_settings.frappe_url):
-		frappe.throw("Frappe.io URL not set up in Press Settings", exc=FrappeioServerNotSet)
+# 	if not (frappe_api_key and frappe_api_secret and press_settings.frappe_url):
+# 		frappe.throw("Frappe.io URL not set up in Press Settings", exc=FrappeioServerNotSet)
 
-	frappe.local.press_frappeio_conn = FrappeClient(
-		press_settings.frappe_url, api_key=frappe_api_key, api_secret=frappe_api_secret
-	)
+# 	frappe.local.press_frappeio_conn = FrappeClient(
+# 		press_settings.frappe_url, api_key=frappe_api_key, api_secret=frappe_api_secret
+# 	)
 
-	return get_frappe_io_connection()
+# 	return get_frappe_io_connection()
 
 
 def make_formatted_doc(doc, fieldtypes=None):
