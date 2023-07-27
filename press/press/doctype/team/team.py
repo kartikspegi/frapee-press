@@ -22,7 +22,6 @@ from press.marketplace.doctype.marketplace_app_subscription.marketplace_app_subs
 )
 from press.utils.billing import (
 	get_erpnext_com_connection,
-	get_frappe_io_connection,
 	get_stripe,
 	process_micro_debit_test_charge,
 )
@@ -372,14 +371,7 @@ class Team(Document):
 			frappe.get_doc("Invoice", draft_invoice).save()
 
 	def update_billing_details_on_frappeio(self):
-		try:
-			frappeio_client = get_frappe_io_connection()
-		except FrappeioServerNotSet as e:
-			if frappe.conf.developer_mode or os.environ.get("CI"):
-				return
-			else:
-				raise e
-
+		
 		previous_version = self.get_doc_before_save()
 
 		if not previous_version:
